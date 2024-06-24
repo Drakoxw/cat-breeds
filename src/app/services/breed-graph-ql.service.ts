@@ -1,27 +1,24 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpService } from './http.service';
-import {
-  BreedDetailResponse,
-  BreedsListResponse,
-  StatusServices,
-} from '@interfaces/index';
+import { BreedDetailGraphResponse, BreedsListGraphResponse, StatusServices } from '@interfaces/index';
+import { GraphQlService } from './graph-ql.service';
+import { ToastAlertService } from './toast-alert.service';
 import { Subject, Subscription } from 'rxjs';
 import { patchState, signalState } from '@ngrx/signals';
-import { ToastAlertService } from './toast-alert.service';
-import { BREED_DETAIL_MOCK } from '@mocks/index';
+import { BREED_DETAIL_GRAPHQL_MOCK } from '@mocks/index';
 
 interface State {
   loading: boolean;
   omiteAlert: boolean;
-  listBreeds: BreedsListResponse[];
-  breedDetail: BreedDetailResponse;
+  listBreeds: BreedsListGraphResponse[];
+  breedDetail: BreedDetailGraphResponse;
 }
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class BreedsService {
-  #httpService = inject(HttpService);
+export class BreedGraphQlService {
+
+  #graphQLService = inject(GraphQlService);
   #toastService = inject(ToastAlertService);
 
   status$: Subject<StatusServices> = new Subject();
@@ -30,8 +27,9 @@ export class BreedsService {
     loading: false,
     omiteAlert: false,
     listBreeds: [],
-    breedDetail: BREED_DETAIL_MOCK,
+    breedDetail: BREED_DETAIL_GRAPHQL_MOCK,
   });
+
 
   #subs: Subscription[] = [];
 
@@ -40,21 +38,22 @@ export class BreedsService {
   readonly listBreeds = this.#state.listBreeds;
   readonly breed = this.#state.breedDetail;
 
+
   getListBreeds() {
     if (this.loading() && !this.omiteAlert()) {
       return this.#toastService.warning('Se estan cargando los datos');
     }
     this.status$.next('LOADING');
     patchState(this.#state, { loading: true });
-    this.#subs[0] = this.#httpService.getBreedList().subscribe({
+    this.#subs[0] = this.#graphQLService.getBreedList().subscribe({
       next: (r) => {
         patchState(this.#state, { loading: false });
         if (r.data) {
-          patchState(this.#state, { listBreeds: r.data });
+          patchState(this.#state, { listBreeds: r.data.breeds ?? [] });
           this.status$.next('SUCCESS');
         } else {
           this.status$.next('ERROR');
-          return this.#toastService.error(r.msg);
+          return this.#toastService.error("Ocurrio un error inesperado");
         }
       },
       complete: () => {
@@ -66,11 +65,11 @@ export class BreedsService {
   searchBreeds(query: string, limit: number = 5) {
     this.status$.next('LOADING');
     patchState(this.#state, { loading: true, omiteAlert: true });
-    this.#subs[1] = this.#httpService.searchBreedList(query, limit).subscribe({
+    this.#subs[1] = this.#graphQLService.searchBreedList(query, limit).subscribe({
       next: (r) => {
         patchState(this.#state, { loading: false, omiteAlert: true });
         if (r.data) {
-          patchState(this.#state, { listBreeds: r.data });
+          patchState(this.#state, { listBreeds: r.data.breeds ?? [] });
           this.status$.next('SUCCESS');
         } else {
           this.status$.next('ERROR');
@@ -90,15 +89,15 @@ export class BreedsService {
     }
     this.status$.next('LOADING');
     patchState(this.#state, { loading: true });
-    this.#subs[2] = this.#httpService.getBreedDetail(uuid).subscribe({
+    this.#subs[2] = this.#graphQLService.getBreedDetail(uuid).subscribe({
       next: (r) => {
         patchState(this.#state, { loading: false });
-        if (r.data) {
-          patchState(this.#state, { breedDetail: r.data });
+        if (r) {
+          patchState(this.#state, { breedDetail: r.data.breed });
           this.status$.next('SUCCESS');
         } else {
           this.status$.next('ERROR');
-          return this.#toastService.error(r.msg);
+          return this.#toastService.error("Ocurrio un error inessperado");
         }
       },
       complete: () => {
@@ -117,16 +116,11 @@ export class BreedsService {
     patchState(this.#state, { listBreeds: [] });
     this.status$.next('LOADING');
     patchState(this.#state, { loading: true });
-    this.#subs[3] = this.#httpService.resetDataBase().subscribe({
+    this.#subs[3] = this.#graphQLService.resetDataBase().subscribe({
       next: (r) => {
         patchState(this.#state, { loading: false });
-        if (!r.error) {
-          this.getListBreeds();
-          this.#toastService.success('La base de datos ha sido actualizada!')
-        } else {
-          this.status$.next('ERROR');
-          return this.#toastService.error(r.msg);
-        }
+        this.getListBreeds();
+        this.#toastService.success('La base de datos ha sido actualizada!')
       },
       complete: () => {
         this.status$.next('');
@@ -135,7 +129,7 @@ export class BreedsService {
   }
 
   clearBreed(): void {
-    patchState(this.#state, { breedDetail: BREED_DETAIL_MOCK });
+    patchState(this.#state, { breedDetail: BREED_DETAIL_GRAPHQL_MOCK });
   }
 
   onDestroy(): void {
