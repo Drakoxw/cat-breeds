@@ -67,25 +67,6 @@ export class HttpService {
       )
     );
   }
-  // searchBreedList(query: string, limit: number = 5): Observable<{
-  //   error: boolean;
-  //   msg: string;
-  //   data?: BreedsListResponse[]
-  // }> {
-  //   const res = { error: true, msg: 'No se optuvieron datos del servicio', data: [BREEDS_DATA_LIST] };
-  //   return this.http.get<BreedsListResponse[]>(`${URL_API_BASE}/api/breeds/search?value=${query}&limit=${limit}`).pipe(
-  //     map((r) => {
-  //       if (r.length === 0) {
-  //         return res;
-  //       }
-  //       res.error = false;
-  //       res.msg = 'Datos encontrados!';
-  //       res.data = r;
-  //       return res
-  //     }),
-  //     catchError(httpErrorHandler),
-  //   );
-  // }
 
   /**
    * RETORNA EL DETALLE DE LA RAZA

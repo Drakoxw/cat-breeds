@@ -13,8 +13,12 @@ const ROUTES = [
     path: '/home',
   },
   {
-    label: 'Razas',
+    label: 'Razas GraphQL',
     path: '/list-breeds',
+  },
+  {
+    label: 'Razas',
+    path: '/list-breeds-simple',
   },
 ];
 

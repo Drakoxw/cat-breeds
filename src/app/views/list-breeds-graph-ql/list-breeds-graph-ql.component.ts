@@ -1,34 +1,35 @@
 import { AsyncPipe, NgTemplateOutlet, SlicePipe } from '@angular/common';
 import { Component, OnDestroy, OnInit, effect, inject } from '@angular/core';
-import { Subscription } from 'rxjs';
+
 import {
   LoadingComponent,
   ModalComponent,
   PaginationComponent,
   InputSearchComponent,
-  BreedDetailComponent,
+  BreedDetailGraphQLComponent,
 } from '@components/index';
-import { FilterBreedsTablePipe } from '@pipes/filter-breeds-table.pipe';
-import { GraphQlService, BreedsService } from '@services/index';
+import { BreedGraphQlService } from '@services/index';
+import { Subscription } from 'rxjs';
+import { FilterBreedsGraphqlTablePipe } from '@pipes/filter-breeds-graphql-table.pipe';
 
 @Component({
-  selector: 'app-list-breeds',
+  selector: 'app-list-breeds-graph-ql',
   standalone: true,
   imports: [
     NgTemplateOutlet,
     InputSearchComponent,
-    FilterBreedsTablePipe,
+    FilterBreedsGraphqlTablePipe,
     PaginationComponent,
     SlicePipe,
     ModalComponent,
-    BreedDetailComponent,
+    BreedDetailGraphQLComponent,
     LoadingComponent,
-    AsyncPipe
+    AsyncPipe,
   ],
-  templateUrl: './list-breeds.component.html',
+  templateUrl: './list-breeds-graph-ql.component.html',
 })
-export class ListBreedsComponent implements OnInit, OnDestroy {
-  readonly breedsService = inject(BreedsService);
+export class ListBreedsGraphQLComponent implements OnInit, OnDestroy {
+  readonly breedsService = inject(BreedGraphQlService);
 
   showModalConfim = false;
   activateLoading = false;

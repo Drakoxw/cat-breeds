@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { LayoutComponent } from '@components/layout/layout.component';
 
-import { HomeComponent, ListBreedsComponent } from '@views/index';
+import { HomeComponent, ListBreedsComponent, ListBreedsGraphQLComponent } from '@views/index';
 
 export const routes: Routes = [
   {
@@ -9,7 +9,8 @@ export const routes: Routes = [
     component: LayoutComponent,
     children: [
       { path: 'home', component: HomeComponent },
-      { path: 'list-breeds', component: ListBreedsComponent },
+      { path: 'list-breeds', component: ListBreedsGraphQLComponent },
+      { path: 'list-breeds-simple', component: ListBreedsComponent },
       { path: '**', redirectTo: 'home', pathMatch: 'full' },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
     ],

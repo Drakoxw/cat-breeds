@@ -1,4 +1,4 @@
-import { BreedDetailResponse, BreedsListResponse } from '@interfaces/index';
+import { BreedDetailGraphResponse, BreedDetailResponse, BreedsListResponse } from '@interfaces/index';
 
 export const BREEDS_DATA_LIST: BreedsListResponse = {
   uuid: '',
@@ -32,5 +32,18 @@ export const BREED_DETAIL_MOCK: BreedDetailResponse = {
     altNames: '',
     lifeSpan: '',
     referenceImageId: ''
+  }
+}
+
+export const BREED_DETAIL_GRAPHQL_MOCK:BreedDetailGraphResponse = {
+  id: '',
+  url: '',
+  intelligence: '',
+  adaptability: '',
+  energyLevel: '',
+  wikipediaUrl: '',
+  breed: {
+    name: '',
+    description: ''
   }
 }
