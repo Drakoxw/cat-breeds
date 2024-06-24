@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
   title = 'CatBreeds';
 
   ngOnInit(): void {
-    this.toastService.info('Toast Alert ok')
+    // this.toastService.info('Toast Alert ok')
   }
 
 }

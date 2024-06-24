@@ -5,3 +5,7 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  font-family: Roboto, Poppins , system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Open Sans';
+  transition: all 0.3s ease-in-out;
+}
