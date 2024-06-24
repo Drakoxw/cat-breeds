@@ -1,0 +1,67 @@
+<nav class="flex items-center justify-between pt-4" aria-label="Table navigation">
+  <div class="md:hidden"></div>
+  <span class="hidden md:block rounded-lg border border-gray-300 bg-white py-[6px] px-3 text-sm leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+    Showing
+    <span class="font-semibol">{{ _page == 1 ? _page : (_page - 1) * limit() + 1 }}-{{ _page == 1 ? limit() : (_page - 1) * limit() + limit() }}</span>
+    of <span class="font-semibol">{{ _total }}</span>
+  </span>
+
+  <div class="flex">
+    <div>
+      <button
+        (click)="onPrev()"
+        class="ml-0 flex h-8 items-center justify-center rounded-l-lg border border-gray-300 bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+        Previous
+      </button>
+    </div>
+    <ul class="hidden sm:inline-flex h-8 max-w-[50vw] -space-x-px overflow-auto text-sm">
+      @if (shouldShowFirstPage()) {
+        <li>
+          <button
+            (click)="goTo(1)"
+            class="flex h-8 items-center justify-center border border-gray-300 px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400"
+            [ngClass]="{ 'bg-gray-100 dark:bg-gray-700 dark:text-white': 1 === _page }">
+            1
+          </button>
+        </li>
+      }
+      @if (shouldShowLeftEllipsis()) {
+        <li>
+          <span class="flex h-8 items-center justify-center border border-gray-300 px-3 leading-tight text-gray-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400">...</span>
+        </li>
+      }
+      @for (p of visiblePages; track $index) {
+        <li>
+          <button
+            (click)="goTo(p)"
+            class="flex h-8 items-center justify-center border border-gray-300 px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400"
+            [ngClass]="{ 'bg-gray-100 dark:bg-gray-700 dark:text-white': p === _page }">
+            {{ p }}
+          </button>
+        </li>
+      }
+      @if (shouldShowRightEllipsis()) {
+        <li>
+          <span class="flex h-8 items-center justify-center border border-gray-300 px-3 leading-tight text-gray-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400">...</span>
+        </li>
+      }
+      @if (shouldShowLastPage()) {
+        <li>
+          <button
+            (click)="goTo(_totalPages)"
+            class="flex h-8 items-center justify-center border border-gray-300 px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400"
+            [ngClass]="{ 'bg-gray-100 dark:bg-gray-700 dark:text-white': _totalPages === _page }">
+            {{ _totalPages }}
+          </button>
+        </li>
+      }
+    </ul>
+    <div>
+      <button
+        (click)="onNext()"
+        class="flex h-8 items-center justify-center rounded-r-lg border border-gray-300 bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+        Next
+      </button>
+    </div>
+  </div>
+</nav>

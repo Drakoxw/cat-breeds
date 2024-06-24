@@ -6,19 +6,17 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [FormsModule],
   templateUrl: './input-search.component.html',
-  styleUrl: './input-search.component.css'
 })
 export class InputSearchComponent {
   @Output() valueChange = new EventEmitter<string>();
-  value = ''
+  value = '';
 
   onChage() {
-    this.valueChange.emit(this.value)
+    this.valueChange.emit(this.value);
   }
 
   clearInput() {
-    this.value = ''
-    this.onChage()
+    this.value = '';
+    this.onChage();
   }
-
 }

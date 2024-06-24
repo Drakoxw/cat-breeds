@@ -27,6 +27,10 @@
       "@services/*": [ "./src/app/services/*" ],
       "@components/*": [ "./src/app/components/*" ],
       "@views/*": [ "./src/app/views/*" ],
+      "@interfaces/*": [ "./src/app/core/interfaces/*" ],
+      "@constants/*": [ "./src/app/core/constants/*" ],
+      "@mocks/*": [ "./src/app/core/mocks/*" ],
+      "@pipes/*": [ "./src/app/core/pipes/*" ],
     },
   },
   "angularCompilerOptions": {

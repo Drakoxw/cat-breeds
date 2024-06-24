@@ -6,14 +6,9 @@ import { FooterComponent, NavBarComponent } from '..';
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [
-    RouterOutlet,
-    NavBarComponent,
-    FooterComponent
-  ],
+  imports: [RouterOutlet, NavBarComponent, FooterComponent],
   templateUrl: './layout.component.html',
-  styleUrl: './layout.component.css'
 })
 export class LayoutComponent {
-  date = new Date()
+  date = new Date();
 }

@@ -4,6 +4,7 @@
     type="text"
     [(ngModel)]="value"
     (change)="onChage()"
+    (keyup)="onChage()"
     placeholder="Search..."
   />
   <div (click)="clearInput()" class="absolute right-0 inset-y-0 flex items-center">
