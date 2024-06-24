@@ -3,7 +3,7 @@
     class="fixed inset-0 top-0 z-10 left-0 h-screen w-screen bg-gray-700 bg-opacity-20 flex items-center justify-center"
   >
 
-    <div class="modal-container inset-0 p-4 bg-white rounded-lg shadow-lg">
+    <div class="modal-container inset-0 p-4 max-w-[95dvw] bg-white rounded-lg shadow-lg">
 
       <div class="relative">
         <div class="absolute -top-[10px] !right-[1px]">
@@ -42,17 +42,6 @@
         }
         <ng-content></ng-content>
       </div>
-      @if (showCancelButton || showConfirmButton) {
-      <div class="w-full flex justify-center items-center gap-2">
-        @if (showCancelButton) {
-        <!-- <app-button title="Cerrar ventana" (buttonClick)="onClose()"> Cancelar </app-button>
-        } @if (showConfirmButton) {
-        <app-button styleButton="green" (buttonClick)="onConfirm()">
-          Confirmar
-        </app-button> -->
-        }
-      </div>
-      }
     </div>
 
   </div>
