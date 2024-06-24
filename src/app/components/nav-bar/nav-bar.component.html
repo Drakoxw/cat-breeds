@@ -22,7 +22,7 @@
         @for (route of routes; track $index) {
         <a
           [routerLink]="route.path"
-          routerLinkActive="text-red-500 "
+          routerLinkActive="text-indigo-700 "
           class="py-5 px-3 text-gray-700 transition-none hover:text-gray-900 hover:font-bold"
           >{{ route.label }}</a
         >
@@ -57,7 +57,7 @@
       @for (route of routes; track $index) {
       <a
         [routerLink]="route.path"
-        routerLinkActive="text-red-500"
+        routerLinkActive="text-indigo-700"
         class="block py-2 px-4 text-sm cursor-pointer hover:bg-gray-200"
         >{{ route.label }}</a
       >

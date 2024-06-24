@@ -10,5 +10,7 @@ import { Component } from '@angular/core';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-
+  linkWhastapp = 'https://wa.me/573108018388'
+  linkLinkedin = 'https://www.linkedin.com/in/wilmar-roncancio-mendez-b344761bb/'
+  linkGithub = 'https://github.com/Drakoxw'
 }
